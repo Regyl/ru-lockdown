@@ -1,0 +1,151 @@
+:root {
+  --bg: #12110e;
+  --amber: #f0a202;
+  --amber-dim: #8a6412;
+  --ink: #f4efe4;
+  --muted: #9a9284;
+  --line: #3a3428;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  width: 320px;
+  color: var(--ink);
+  background: repeating-linear-gradient(
+    -45deg,
+    #18160f 0 8px,
+    #100e0b 8px 16px
+  );
+  font-family: Bahnschrift, "Segoe UI", sans-serif;
+}
+
+.panel {
+  margin: 10px;
+  padding: 16px 16px 14px;
+  background: rgb(18 17 14 / 94%);
+  border: 1px solid var(--line);
+  box-shadow: inset 3px 0 0 var(--amber);
+}
+
+header {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.mark {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  margin: 0;
+  flex: none;
+  border: 1px solid var(--amber);
+  background: #0c0b09;
+  color: var(--amber);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.mark::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  top: 50%;
+  height: 2px;
+  background: #0c0b09;
+  box-shadow: 0 0 0 1px var(--amber);
+}
+
+h1 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 650;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+#status {
+  margin: 3px 0 0;
+  color: var(--amber);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+#status.is-off {
+  color: var(--muted);
+}
+
+.switch {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.switch input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.track {
+  position: relative;
+  width: 52px;
+  height: 28px;
+  flex: none;
+  border: 1px solid var(--amber-dim);
+  background: #0c0b09;
+}
+
+.thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background: var(--muted);
+  transition: transform 160ms ease, background 160ms ease;
+}
+
+.switch input:checked + .track {
+  border-color: var(--amber);
+  background: #2a220f;
+}
+
+.switch input:checked + .track .thumb {
+  transform: translateX(24px);
+  background: var(--amber);
+}
+
+.switch input:focus-visible + .track {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+.switch input:disabled + .track {
+  opacity: 0.55;
+}
+
+.switch-label {
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.note {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}

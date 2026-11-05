@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "RU Lockdown",
+  "version": "1.0.0",
+  "description": "Blocks all browser connections to hostnames ending in .ru, .su, or .рф.",
+  "permissions": ["declarativeNetRequest"],
+  "host_permissions": [
+    "*://*.ru/*",
+    "*://*.su/*",
+    "*://*.xn--p1ai/*",
+    "ws://*.ru/*",
+    "ws://*.su/*",
+    "ws://*.xn--p1ai/*",
+    "wss://*.ru/*",
+    "wss://*.su/*",
+    "wss://*.xn--p1ai/*"
+  ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ru_block",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "RU Lockdown",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

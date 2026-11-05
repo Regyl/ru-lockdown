@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>RU Lockdown</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="panel">
+      <header>
+        <p class="mark" aria-hidden="true">RU</p>
+        <div>
+          <h1>Lockdown</h1>
+          <p id="status">Checking rule…</p>
+        </div>
+      </header>
+      <label class="switch">
+        <input id="enabled" type="checkbox" />
+        <span class="track"><span class="thumb"></span></span>
+        <span class="switch-label">Block .ru .su .рф</span>
+      </label>
+      <p class="note">
+        Browser requests to hostnames ending in .ru, .su, or .рф are canceled.
+        A blocked page shows Chrome’s ERR_BLOCKED_BY_CLIENT. This does not stop
+        other apps or raw IP addresses.
+      </p>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>
