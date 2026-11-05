@@ -5,6 +5,7 @@
     "action": { "type": "block" },
     "condition": {
       "regexFilter": "^(?:https?|wss?)://(?:[^/?#]*@)?(?:[^/?#]+\\.)+(?:xn--p1ai|ru|su)\\.?(?:[:/?#]|$)",
+      "excludedRequestDomains": ["google.ru"],
       "resourceTypes": [
         "main_frame",
         "sub_frame",

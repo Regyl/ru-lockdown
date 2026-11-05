@@ -89,6 +89,47 @@ for (const url of allowed) {
   assert.doesNotMatch(url, ruHost, `expected to allow ${url}`);
 }
 
+const excludedDomains = rules[0].condition.excludedRequestDomains;
+assert.deepEqual(excludedDomains, ["google.ru"]);
+
+function requestHost(url) {
+  return new URL(url).hostname.replace(/\.$/, "").toLowerCase();
+}
+
+function isExcluded(url) {
+  const host = requestHost(url);
+  return excludedDomains.some((domain) => host === domain || host.endsWith(`.${domain}`));
+}
+
+const excluded = [
+  "https://google.ru",
+  "https://google.ru/",
+  "https://www.google.ru/search?q=1",
+  "https://accounts.google.ru/path",
+  "https://GOOGLE.RU",
+  "https://a.b.google.ru:443/x",
+  "wss://www.google.ru/socket",
+];
+
+const stillBlocked = [
+  "https://evilgoogle.ru",
+  "https://notgoogle.ru/path",
+  "https://google.su",
+  "https://google.xn--p1ai",
+];
+
+for (const url of excluded) {
+  assert.match(url, ruHost, `block rule should still match ${url}`);
+  assert.ok(isExcluded(url), `expected exclusion for ${url}`);
+}
+
+for (const url of stillBlocked) {
+  assert.match(url, ruHost, `expected to block ${url}`);
+  assert.equal(isExcluded(url), false, `expected no exclusion for ${url}`);
+}
+
+assert.equal(isExcluded("https://google.ru.evil.com/"), false);
+
 const types = new Set(rules[0].condition.resourceTypes);
 for (const required of ["main_frame", "xmlhttprequest", "websocket", "script"]) {
   assert.ok(types.has(required), `missing resource type ${required}`);
@@ -98,4 +139,6 @@ for (const pattern of ["*://*.su/*", "*://*.xn--p1ai/*", "wss://*.su/*", "wss://
   assert.ok(manifest.host_permissions.includes(pattern), `missing host permission ${pattern}`);
 }
 
-console.log(`ok ${blocked.length + idnBlocked.length} blocked, ${allowed.length} allowed`);
+console.log(
+  `ok ${blocked.length + idnBlocked.length + stillBlocked.length} blocked, ${allowed.length} allowed, ${excluded.length} excluded`
+);
